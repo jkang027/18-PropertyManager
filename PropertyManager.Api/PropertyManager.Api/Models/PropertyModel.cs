@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace PropertyManager.Api.Models
+﻿namespace PropertyManager.Api.Models
 {
     public class PropertyModel
     {
@@ -14,5 +9,7 @@ namespace PropertyManager.Api.Models
         public int NumberOfBedrooms { get; set; }
         public int NumberOfBathrooms { get; set; }
         public int NumberOfVehicleSpaces { get; set; }
+
+        public AddressModel Address { get; set; }
     }
 }

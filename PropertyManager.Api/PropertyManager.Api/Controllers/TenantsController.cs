@@ -1,17 +1,15 @@
-﻿using System;
+﻿using AutoMapper;
+using PropertyManager.Api.Domain;
+using PropertyManager.Api.Infrastructure;
+using PropertyManager.Api.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PropertyManager.Api.Domain;
-using PropertyManager.Api.Infrastructure;
-using PropertyManager.Api.Models;
-using AutoMapper;
 
 namespace PropertyManager.Api.Controllers
 {
@@ -55,7 +53,7 @@ namespace PropertyManager.Api.Controllers
 
             return Mapper.Map<IEnumerable<LeaseModel>>(tenants);
         }
-        
+
         // PUT: api/Tenants/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutTenant(int id, TenantModel tenant)
@@ -71,11 +69,13 @@ namespace PropertyManager.Api.Controllers
             }
 
             #region Thing to Change
+
             var dbTenant = db.Tenants.Find(id);
 
             dbTenant.Update(tenant);
             db.Entry(dbTenant).State = EntityState.Modified;
-            #endregion
+
+            #endregion Thing to Change
 
             try
             {

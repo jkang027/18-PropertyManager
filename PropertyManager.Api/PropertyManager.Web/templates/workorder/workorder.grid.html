@@ -1,0 +1,31 @@
+﻿<table class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>WorkOrder ID</th>
+            <th>WorkOrder Created By</th>
+            <th>WorkOrder For </th>
+            <th>Description</th>
+            <th>Created On</th>
+            <th>Closed On</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="workOrder in workOrders">
+            <td>{{workOrder.WorkOrderId}}</td>
+            <td>{{workOrder.Tenant.LastName}}, {{workOrder.Tenant.FirstName}}</td>
+            <td>{{workOrder.Property.PropertyName}}</td>
+            <td>{{workOrder.Description}}</td>
+            <td>{{workOrder.CreatedDate}}</td>
+            <td>{{workOrder.ClosedDate}}</td>
+            <td>
+                <a class="btn btn-info" ng-href="#/workOrder/detail/{{workOrder.WorkOrderId}}">
+                    Edit
+                </a>
+                <a class="btn btn-danger">
+                    Delete
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

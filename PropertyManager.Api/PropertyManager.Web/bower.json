@@ -1,0 +1,19 @@
+{
+  "name": "PropertyManger.Web",
+  "homepage": "https://github.com/jkang027/18-PropertyManager.git",
+  "authors": [
+    "Jun Kang <jun.y.kang027@gmail.com>"
+  ],
+  "description": "",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

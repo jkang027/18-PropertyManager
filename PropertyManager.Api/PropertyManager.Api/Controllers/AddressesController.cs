@@ -1,17 +1,14 @@
-﻿using System;
+﻿using AutoMapper;
+using PropertyManager.Api.Domain;
+using PropertyManager.Api.Infrastructure;
+using PropertyManager.Api.Models;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PropertyManager.Api.Domain;
-using PropertyManager.Api.Infrastructure;
-using PropertyManager.Api.Models;
-using AutoMapper;
 
 namespace PropertyManager.Api.Controllers
 {
@@ -53,11 +50,13 @@ namespace PropertyManager.Api.Controllers
             }
 
             #region Thing to change
+
             var dbAddress = db.Addresses.Find(id);
 
             dbAddress.Update(address);
             db.Entry(dbAddress).State = EntityState.Modified;
-            #endregion
+
+            #endregion Thing to change
 
             try
             {
@@ -91,7 +90,7 @@ namespace PropertyManager.Api.Controllers
 
             db.Addresses.Add(dbAddress);
             db.SaveChanges();
-            
+
             address.AddressId = dbAddress.AddressId;
 
             return CreatedAtRoute("DefaultApi", new { id = address.AddressId }, address);

@@ -1,0 +1,24 @@
+﻿<form name="propertyDetailForm">
+    <div class="form-group">
+        <label>Property Name</label>
+        <input type="text" class="form-control" ng-model="property.PropertyName" />
+        <label>Square Feet</label>
+        <input type="text" class="form-control" ng-model="property.SquareFeet" />
+        <label>Number of Bedrooms</label>
+        <input type="text" class="form-control" ng-model="property.NumberOfBedrooms" />
+        <label>Number of Bathrooms</label>
+        <input type="text" class="form-control" ng-model="property.NumberOfBathrooms" />
+        <label>Number of Vehicle Spaces</label>
+        <input type="text" class="form-control" ng-model="property.NumberOfVehicleSpaces" />
+    </div>
+</form>
+
+<div class="well clearfix">
+    <button class="btn btn-success pull-right" ng-click="saveProperty()">
+        Save
+    </button>
+</div>
+
+<!--<pre>
+<! {{property | json}}
+<! </pre> -->

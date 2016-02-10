@@ -1,0 +1,31 @@
+﻿<table class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>Lease ID</th>
+            <th>Leaser Name</th>
+            <th>Property Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Region</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="lease in leases">
+            <td>{{lease.LeaseId}}</td>
+            <td>{{lease.Tenant.LastName}}, {{lease.Tenant.FirstName}}</td>
+            <td>{{lease.Property.PropertyName}}</td>
+            <td>{{lease.Property.Address.Address1}}</td>
+            <td>{{lease.Property.Address.City}}</td>
+            <td>{{lease.Property.Address.Region}}</td>
+            <td>
+                <a class="btn btn-info" ng-href="#/lease/detail/{{lease.LeaseId}}">
+                    Edit
+                </a>
+                <a class="btn btn-danger">
+                    Delete
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

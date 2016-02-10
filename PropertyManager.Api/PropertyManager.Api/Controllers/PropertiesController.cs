@@ -1,17 +1,15 @@
-﻿using System;
+﻿using AutoMapper;
+using PropertyManager.Api.Domain;
+using PropertyManager.Api.Infrastructure;
+using PropertyManager.Api.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PropertyManager.Api.Domain;
-using PropertyManager.Api.Infrastructure;
-using PropertyManager.Api.Models;
-using AutoMapper;
 
 namespace PropertyManager.Api.Controllers
 {
@@ -71,11 +69,13 @@ namespace PropertyManager.Api.Controllers
             }
 
             #region Thing to change
+
             var dbProperty = db.Properties.Find(id);
 
             dbProperty.Update(property);
             db.Entry(dbProperty).State = EntityState.Modified;
-            #endregion
+
+            #endregion Thing to change
 
             try
             {

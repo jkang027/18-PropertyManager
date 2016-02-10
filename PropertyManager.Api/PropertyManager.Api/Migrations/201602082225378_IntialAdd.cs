@@ -1,8 +1,7 @@
 namespace PropertyManager.Api.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class IntialAdd : DbMigration
     {
         public override void Up()
@@ -10,89 +9,88 @@ namespace PropertyManager.Api.Migrations
             CreateTable(
                 "dbo.Addresses",
                 c => new
-                    {
-                        AddressId = c.Int(nullable: false, identity: true),
-                        Address1 = c.String(),
-                        Address2 = c.String(),
-                        Address3 = c.String(),
-                        Address4 = c.String(),
-                        Address5 = c.String(),
-                        City = c.String(),
-                        Region = c.String(),
-                        PostalCode = c.String(),
-                        International = c.Boolean(nullable: false),
-                    })
+                {
+                    AddressId = c.Int(nullable: false, identity: true),
+                    Address1 = c.String(),
+                    Address2 = c.String(),
+                    Address3 = c.String(),
+                    Address4 = c.String(),
+                    Address5 = c.String(),
+                    City = c.String(),
+                    Region = c.String(),
+                    PostalCode = c.String(),
+                    International = c.Boolean(nullable: false),
+                })
                 .PrimaryKey(t => t.AddressId);
-            
+
             CreateTable(
                 "dbo.Properties",
                 c => new
-                    {
-                        PropertyId = c.Int(nullable: false, identity: true),
-                        AddressId = c.Int(nullable: false),
-                        PropertyName = c.String(),
-                        SquareFeet = c.Int(),
-                        NumberOfBedrooms = c.Int(nullable: false),
-                        NumberOfBathrooms = c.Int(nullable: false),
-                        NumberOfVehicleSpaces = c.Int(nullable: false),
-                    })
+                {
+                    PropertyId = c.Int(nullable: false, identity: true),
+                    AddressId = c.Int(nullable: false),
+                    PropertyName = c.String(),
+                    SquareFeet = c.Int(),
+                    NumberOfBedrooms = c.Int(nullable: false),
+                    NumberOfBathrooms = c.Int(nullable: false),
+                    NumberOfVehicleSpaces = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => t.PropertyId)
                 .ForeignKey("dbo.Addresses", t => t.AddressId, cascadeDelete: true)
                 .Index(t => t.AddressId);
-            
+
             CreateTable(
                 "dbo.Leases",
                 c => new
-                    {
-                        LeaseId = c.Int(nullable: false, identity: true),
-                        TenantId = c.Int(nullable: false),
-                        PropertyId = c.Int(nullable: false),
-                        StartDate = c.DateTime(nullable: false),
-                        EndDate = c.DateTime(),
-                        RentAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        RentFrequency = c.Int(nullable: false),
-                    })
+                {
+                    LeaseId = c.Int(nullable: false, identity: true),
+                    TenantId = c.Int(nullable: false),
+                    PropertyId = c.Int(nullable: false),
+                    StartDate = c.DateTime(nullable: false),
+                    EndDate = c.DateTime(),
+                    RentAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    RentFrequency = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => t.LeaseId)
                 .ForeignKey("dbo.Tenants", t => t.TenantId, cascadeDelete: true)
                 .ForeignKey("dbo.Properties", t => t.PropertyId, cascadeDelete: true)
                 .Index(t => t.TenantId)
                 .Index(t => t.PropertyId);
-            
+
             CreateTable(
                 "dbo.Tenants",
                 c => new
-                    {
-                        TenantId = c.Int(nullable: false, identity: true),
-                        AddressId = c.Int(nullable: false),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        PhoneNumber = c.String(),
-                        EmailAddress = c.String(),
-                    })
+                {
+                    TenantId = c.Int(nullable: false, identity: true),
+                    AddressId = c.Int(nullable: false),
+                    FirstName = c.String(),
+                    LastName = c.String(),
+                    PhoneNumber = c.String(),
+                    EmailAddress = c.String(),
+                })
                 .PrimaryKey(t => t.TenantId)
                 .ForeignKey("dbo.Addresses", t => t.AddressId)
                 .Index(t => t.AddressId);
-            
+
             CreateTable(
                 "dbo.WorkOrders",
                 c => new
-                    {
-                        WorkOrderId = c.Int(nullable: false, identity: true),
-                        PropertyId = c.Int(nullable: false),
-                        TenantId = c.Int(nullable: false),
-                        Description = c.String(),
-                        Priority = c.Int(nullable: false),
-                        OpenedDate = c.DateTime(nullable: false),
-                        ClosedDate = c.DateTime(nullable: false),
-                    })
+                {
+                    WorkOrderId = c.Int(nullable: false, identity: true),
+                    PropertyId = c.Int(nullable: false),
+                    TenantId = c.Int(nullable: false),
+                    Description = c.String(),
+                    Priority = c.Int(nullable: false),
+                    OpenedDate = c.DateTime(nullable: false),
+                    ClosedDate = c.DateTime(nullable: false),
+                })
                 .PrimaryKey(t => t.WorkOrderId)
                 .ForeignKey("dbo.Tenants", t => t.TenantId, cascadeDelete: true)
                 .ForeignKey("dbo.Properties", t => t.PropertyId, cascadeDelete: true)
                 .Index(t => t.PropertyId)
                 .Index(t => t.TenantId);
-            
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Tenants", "AddressId", "dbo.Addresses");
