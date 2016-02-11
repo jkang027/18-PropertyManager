@@ -5,10 +5,10 @@ namespace PropertyManager.Api.Domain
 {
     public enum Priorities
     {
-        Urgent = 1,
-        High = 2,
-        Moderate = 3,
-        Low = 4
+        Low = 1,
+        Moderate = 2,
+        High = 3,
+        Urgent = 4
     }
 
     public class WorkOrder

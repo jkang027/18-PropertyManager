@@ -4,6 +4,13 @@
         $scope.workOrders = WorkOrderResource.query();
     }
 
+    $scope.deleteWorkOrder = function (workOrder) {
+        workOrder.$remove(function () {
+            alert('Work Order Removed');
+            activate();
+        });
+    };
+
     activate();
 
 });

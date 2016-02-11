@@ -35,6 +35,7 @@ namespace PropertyManager.Api.Domain
             NumberOfBedrooms = model.NumberOfBedrooms;
             NumberOfBathrooms = model.NumberOfBathrooms;
             NumberOfVehicleSpaces = model.NumberOfVehicleSpaces;
+            Address.Update(model.Address);
         }
     }
 }

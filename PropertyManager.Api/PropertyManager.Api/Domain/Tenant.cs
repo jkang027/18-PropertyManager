@@ -33,6 +33,7 @@ namespace PropertyManager.Api.Domain
             LastName = model.LastName;
             PhoneNumber = model.PhoneNumber;
             EmailAddress = model.EmailAddress;
+            PriorAddress.Update(model.PriorAddress);
         }
     }
 }

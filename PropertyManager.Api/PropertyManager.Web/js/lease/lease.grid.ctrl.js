@@ -4,6 +4,13 @@
         $scope.leases = LeaseResource.query();
     }
 
+    $scope.deleteLease = function (lease) {
+        lease.$remove(function () {
+            alert('Lease Removed');
+            activate();
+        });
+    };
+
     activate();
 
 });

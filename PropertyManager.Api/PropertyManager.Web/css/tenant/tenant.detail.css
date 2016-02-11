@@ -1,0 +1,13 @@
+﻿label {
+    color: orangered;
+}
+
+.form-control {
+    background-color: transparent;
+    color: darkgrey;
+}
+
+#savebutton {
+    background-color: transparent;
+    border: 0px;
+}
