@@ -3,7 +3,7 @@
 angular.module('app').value('apiUrl', 'http://localhost:51533/api');
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
-
+    $urlRouterProvider.otherwise('dashboard');
     $stateProvider.state('dashboard', { url: '/dashboard', templateUrl: '/templates/dashboard/dashboard.html', controller: 'DashboardController' })
                   .state('property', { url: '/property', abstract: true, template: '<ui-view/>' })
                       .state('property.grid', { url: '/grid', templateUrl: '/templates/property/property.grid.html', controller: 'PropertyGridController' })

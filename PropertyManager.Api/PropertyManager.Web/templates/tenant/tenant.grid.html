@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="tenant in tenants" id="tenantgridbody">
+        <tr ng-repeat="tenant in tenants | orderBy:'id':true" id="tenantgridbody">
             <td>{{tenant.TenantId}}</td>
             <td>{{tenant.LastName}}, {{tenant.FirstName}}</td>
             <td>{{tenant.PhoneNumber}}</td>

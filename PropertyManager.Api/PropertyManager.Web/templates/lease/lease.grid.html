@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="lease in leases" id="leasegridbody">
+        <tr ng-repeat="lease in leases | orderBy:'id':true" id="leasegridbody">
             <td>{{lease.LeaseId}}</td>
             <td>{{lease.Tenant.LastName}}, {{lease.Tenant.FirstName}}</td>
             <td>{{lease.Property.PropertyName}}</td>

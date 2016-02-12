@@ -36,11 +36,55 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#/dashboard">Dashboard</a></li>
-                    <li><a href="#/property/grid">Properties</a></li>
-                    <li><a href="#/tenant/grid">Tenants</a></li>
-                    <li><a href="#/lease/grid">Leases</a></li>
-                    <li><a href="#/workOrder/grid">Work Orders</a></li>
+                    <li><a href="#/dashboard">Dashboard</a></li>
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="propertybutton">
+                                Properties <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#/property/grid">List of Properties</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Add New Property</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tenantbutton">
+                                Tenants <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#/tenant/grid">List of Tenants</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Add New Tenant</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="leasebutton">
+                                Leases <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#/lease/grid">List of Leases</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Add New Lease</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="workorderbutton">
+                                Work Orders <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#/workOrder/grid">List of Work Orders</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Add New Work Order</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

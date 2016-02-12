@@ -22,7 +22,7 @@ namespace PropertyManager.Api.Domain
 
         public Tenant(TenantModel model)
         {
-            this.Update(model);
+            Update(model);
         }
 
         public void Update(TenantModel model)
