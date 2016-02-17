@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 
 namespace PropertyManager.Api.Controllers
 {
+    [Authorize]
     public class LeasesController : ApiController
     {
         private PropertyManagerDataContext db = new PropertyManagerDataContext();
@@ -19,14 +20,14 @@ namespace PropertyManager.Api.Controllers
         // GET: api/Leases
         public IEnumerable<LeaseModel> GetLeases()
         {
-            return Mapper.Map<IEnumerable<LeaseModel>>(db.Leases);
+            return Mapper.Map<IEnumerable<LeaseModel>>(db.Leases.Where(l => l.Property.User.UserName == User.Identity.Name));
         }
 
         // GET: api/Leases/5
         [ResponseType(typeof(Lease))]
         public IHttpActionResult GetLease(int id)
         {
-            Lease lease = db.Leases.Find(id);
+            Lease lease = db.Leases.FirstOrDefault(l => l.Property.User.UserName == User.Identity.Name && l.LeaseId == id);
             if (lease == null)
             {
                 return NotFound();
@@ -51,7 +52,12 @@ namespace PropertyManager.Api.Controllers
 
             #region Thing to change
 
-            var dbLease = db.Leases.Find(id);
+            Lease dbLease = db.Leases.FirstOrDefault(l => l.Property.User.UserName == User.Identity.Name && l.LeaseId == id);
+
+            if (dbLease == null)
+            {
+                return BadRequest();
+            }
 
             dbLease.Update(lease);
             db.Entry(dbLease).State = EntityState.Modified;
@@ -88,6 +94,8 @@ namespace PropertyManager.Api.Controllers
 
             var dbLease = new Lease(lease);
 
+            dbLease.Property.User = db.Users.FirstOrDefault(l => l.UserName == User.Identity.Name);
+
             db.Leases.Add(dbLease);
             db.SaveChanges();
 
@@ -100,7 +108,7 @@ namespace PropertyManager.Api.Controllers
         [ResponseType(typeof(Lease))]
         public IHttpActionResult DeleteLease(int id)
         {
-            Lease lease = db.Leases.Find(id);
+            Lease lease = db.Leases.FirstOrDefault(l => l.Property.User.UserName == User.Identity.Name && l.LeaseId == id);
             if (lease == null)
             {
                 return NotFound();

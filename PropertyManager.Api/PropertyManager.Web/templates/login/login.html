@@ -1,0 +1,20 @@
+﻿<link href="../../css/login/login.css" rel="stylesheet" />
+
+<div id="mainLogin">
+    <h1>Welcome to Jun's<br />Property Manager!</h1>
+    <br />
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control input-lg text-center" ng-model="loginData.username"/>
+    </div>
+    <br />
+    <div>
+        <label>Password</label>
+        <input type="password" class="form-control input-lg text-center" ng-model="loginData.password"/>
+    </div>
+    <br />
+    <button class="btn btn-success btn-lg" ng-click="login()">Sign In</button>
+    <h6>By clicking Sign In, you agree to our<br />License Agreement and Privacy Statement.</h6>
+    <h4>Lol. Not really.</h4>
+    <h3>New to Jun's Property Manager?<br /><a href="/#/register" id="createAccount">Create an account.</a></h3>
+</div>

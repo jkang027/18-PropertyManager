@@ -1,9 +1,10 @@
-﻿using PropertyManager.Api.Domain;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using PropertyManager.Api.Domain;
 using System.Data.Entity;
 
 namespace PropertyManager.Api.Infrastructure
 {
-    public class PropertyManagerDataContext : DbContext
+    public class PropertyManagerDataContext : IdentityDbContext<PropertyManagerUser>
     {
         public PropertyManagerDataContext() : base("PropertyManager")
         {
@@ -32,9 +33,11 @@ namespace PropertyManager.Api.Infrastructure
             modelBuilder.Entity<Tenant>().HasMany(t => t.WorkOrders).WithRequired(wo => wo.Tenant).HasForeignKey(wo => wo.TenantId);
             modelBuilder.Entity<Tenant>().HasMany(t => t.Leases).WithRequired(l => l.Tenant).HasForeignKey(l => l.TenantId);
 
-            //WorkOrder
+            //User
+            modelBuilder.Entity<PropertyManagerUser>().HasMany(u => u.Properties).WithRequired(p => p.User).HasForeignKey(p => p.UserId);
+            modelBuilder.Entity<PropertyManagerUser>().HasMany(u => u.Tenants).WithRequired(t => t.User).HasForeignKey(t => t.UserId).WillCascadeOnDelete(false);
 
-            //Lease
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

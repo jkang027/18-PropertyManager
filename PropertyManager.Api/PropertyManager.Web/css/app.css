@@ -1,0 +1,45 @@
+﻿#mainnavbar {
+    min-height: 100px;
+    background-image: url("http://pickuplinesforyou.com/wp-content/uploads/header.jpg");
+    background-size: 100% 100%;
+}
+
+#navbarcontent {
+    margin-top: 50px;
+}
+
+#uiview {
+    margin-top: 120px;
+}
+
+.btn-group {
+    margin-top: 9px;
+}
+
+.btn-group:hover, #propertybutton:hover, #tenantbutton:hover, #workorderbutton:hover, #leasebutton:hover {
+    color: white;
+}
+
+#propertybutton {
+    background-color: transparent;
+    color: darkgrey;
+    border: 1px;
+}
+
+#tenantbutton {
+    background-color: transparent;
+    color: darkgrey;
+    border: 1px;
+}
+
+#leasebutton {
+    background-color: transparent;
+    color: darkgrey;
+    border: 1px;
+}
+
+#workorderbutton {
+    background-color: transparent;
+    color: darkgrey;
+    border: 1px;
+}

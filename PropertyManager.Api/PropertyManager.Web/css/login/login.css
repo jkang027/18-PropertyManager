@@ -1,0 +1,31 @@
+﻿h1, h3, input, h6 {
+    color: darkgrey;
+}
+
+h1 {
+    text-align: center;
+}
+
+input {
+    background-color: transparent;
+}
+
+#mainLogin {
+    align-items: center;
+    text-align: center;
+    vertical-align: central;
+}
+
+label {
+    color: orangered;
+}
+
+#createAccount {
+    color: red;
+    text-decoration: none;
+}
+
+#createAccount:hover {
+    color: darkred;
+    text-decoration: underline;
+}

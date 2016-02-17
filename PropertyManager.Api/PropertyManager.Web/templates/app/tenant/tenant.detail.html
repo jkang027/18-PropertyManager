@@ -1,0 +1,24 @@
+﻿<link href="../../../css/app/tenant/tenant.detail.css" rel="stylesheet" />
+
+<form name="tenantDetailForm">
+    <div class="form-group">
+        <label>Tenant First Name</label>
+        <input type="text" class="form-control" ng-model="tenant.FirstName" />
+        <label>Last Name</label>
+        <input type="text" class="form-control" ng-model="tenant.LastName" />
+        <label>Phone Number</label>
+        <input type="text" class="form-control" ng-model="tenant.PhoneNumber" />
+        <label>Email Address</label>
+        <input type="text" class="form-control" ng-model="tenant.EmailAddress" />
+    </div>
+</form>
+
+<div class="well clearfix" id="savebutton">
+    <button class="btn btn-success pull-right" ng-click="saveTenant()">
+        Save
+    </button>
+</div>
+
+<!--<pre>
+<! {{tenant | json}}
+<! </pre> -->

@@ -13,6 +13,7 @@ using System.Web.Http.Description;
 
 namespace PropertyManager.Api.Controllers
 {
+    [Authorize]
     public class PropertiesController : ApiController
     {
         private PropertyManagerDataContext db = new PropertyManagerDataContext();
@@ -20,14 +21,15 @@ namespace PropertyManager.Api.Controllers
         // GET: api/Properties
         public IEnumerable<PropertyModel> GetProperties()
         {
-            return Mapper.Map<IEnumerable<PropertyModel>>(db.Properties);
+            return Mapper.Map<IEnumerable<PropertyModel>>(db.Properties.Where(p => p.User.UserName == User.Identity.Name));
         }
 
         // GET: api/Properties/5
         [ResponseType(typeof(Property))]
         public IHttpActionResult GetProperty(int id)
         {
-            Property property = db.Properties.Find(id);
+            Property property = db.Properties.FirstOrDefault(p => p.User.UserName == User.Identity.Name && p.PropertyId == id);
+
             if (property == null)
             {
                 return NotFound();
@@ -40,7 +42,7 @@ namespace PropertyManager.Api.Controllers
         [Route("api/properties/{propertyId}/workorders")]
         public IEnumerable<WorkOrderModel> GetWorkOrdersForProperty(int propertyId)
         {
-            var properties = db.WorkOrders.Where(m => m.PropertyId == propertyId);
+            Property properties = db.Properties.FirstOrDefault(p => p.User.UserName == User.Identity.Name && p.PropertyId == propertyId);
 
             return Mapper.Map<IEnumerable<WorkOrderModel>>(properties);
         }
@@ -49,7 +51,7 @@ namespace PropertyManager.Api.Controllers
         [Route("api/properties/{propertyId}/leases")]
         public IEnumerable<LeaseModel> GetLeasesForProperty(int propertyId)
         {
-            var properties = db.Leases.Where(m => m.PropertyId == propertyId);
+            Property properties = db.Properties.FirstOrDefault(p => p.User.UserName == User.Identity.Name && p.PropertyId == propertyId);
 
             return Mapper.Map<IEnumerable<LeaseModel>>(properties);
         }
@@ -70,7 +72,12 @@ namespace PropertyManager.Api.Controllers
 
             #region Thing to change
 
-            var dbProperty = db.Properties.Find(id);
+            Property dbProperty = db.Properties.FirstOrDefault(p => p.User.UserName == User.Identity.Name && p.PropertyId == id);
+
+            if(dbProperty == null)
+            {
+                return BadRequest();
+            }
 
             dbProperty.Update(property);
             db.Entry(dbProperty).State = EntityState.Modified;
@@ -107,6 +114,8 @@ namespace PropertyManager.Api.Controllers
 
             var dbProperty = new Property(property);
 
+            dbProperty.User = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
             db.Properties.Add(dbProperty);
             db.SaveChanges();
 
@@ -119,7 +128,7 @@ namespace PropertyManager.Api.Controllers
         [ResponseType(typeof(Property))]
         public IHttpActionResult DeleteProperty(int id)
         {
-            Property property = db.Properties.Find(id);
+            Property property = db.Properties.FirstOrDefault(p => p.User.UserName == User.Identity.Name && p.PropertyId == id);
             if (property == null)
             {
                 return NotFound();

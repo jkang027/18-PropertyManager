@@ -1,0 +1,19 @@
+﻿.container {
+    text-align: center;
+}
+
+.container-fluid {
+    text-align: inherit;
+}
+
+input {
+    background-color: transparent;
+}
+
+h1, input, h6 {
+    color: darkgrey;
+}
+
+label {
+    color: orangered;
+}

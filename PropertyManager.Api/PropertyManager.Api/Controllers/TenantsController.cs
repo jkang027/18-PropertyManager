@@ -13,6 +13,7 @@ using System.Web.Http.Description;
 
 namespace PropertyManager.Api.Controllers
 {
+    [Authorize]
     public class TenantsController : ApiController
     {
         private PropertyManagerDataContext db = new PropertyManagerDataContext();
@@ -20,14 +21,15 @@ namespace PropertyManager.Api.Controllers
         // GET: api/Tenants
         public IEnumerable<TenantModel> GetTenants()
         {
-            return Mapper.Map<IEnumerable<TenantModel>>(db.Tenants);
+            return Mapper.Map<IEnumerable<TenantModel>>(db.Tenants.Where(t => t.User.UserName == User.Identity.Name));
         }
 
         // GET: api/Tenants/5
         [ResponseType(typeof(Tenant))]
         public IHttpActionResult GetTenant(int id)
         {
-            Tenant tenant = db.Tenants.Find(id);
+            Tenant tenant = db.Tenants.FirstOrDefault(t => t.User.UserName == User.Identity.Name && t.TenantId == id);
+
             if (tenant == null)
             {
                 return NotFound();
@@ -40,7 +42,7 @@ namespace PropertyManager.Api.Controllers
         [Route("api/tenants/{tenantId}/workorders")]
         public IEnumerable<WorkOrderModel> GetWorkOrdersForTenant(int tenantId)
         {
-            var tenants = db.WorkOrders.Where(m => m.TenantId == tenantId);
+            Tenant tenants = db.Tenants.FirstOrDefault(t => t.User.UserName == User.Identity.Name && t.TenantId == tenantId);
 
             return Mapper.Map<IEnumerable<WorkOrderModel>>(tenants);
         }
@@ -49,7 +51,7 @@ namespace PropertyManager.Api.Controllers
         [Route("api/tenants/{tenantId}/leases")]
         public IEnumerable<LeaseModel> GetLeasesForTenant(int tenantId)
         {
-            var tenants = db.Leases.Where(m => m.TenantId == tenantId);
+            Tenant tenants = db.Tenants.FirstOrDefault(t => t.User.UserName == User.Identity.Name && t.TenantId == tenantId);
 
             return Mapper.Map<IEnumerable<LeaseModel>>(tenants);
         }
@@ -70,7 +72,12 @@ namespace PropertyManager.Api.Controllers
 
             #region Thing to Change
 
-            var dbTenant = db.Tenants.Find(id);
+            Tenant dbTenant = db.Tenants.FirstOrDefault(t => t.User.UserName == User.Identity.Name && t.TenantId == id);
+
+            if(dbTenant == null)
+            {
+                return BadRequest();
+            }
 
             dbTenant.Update(tenant);
             db.Entry(dbTenant).State = EntityState.Modified;
@@ -107,6 +114,8 @@ namespace PropertyManager.Api.Controllers
 
             var dbTenant = new Tenant(tenant);
 
+            dbTenant.User = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
             db.Tenants.Add(dbTenant);
             db.SaveChanges();
 
@@ -119,7 +128,7 @@ namespace PropertyManager.Api.Controllers
         [ResponseType(typeof(Tenant))]
         public IHttpActionResult DeleteTenant(int id)
         {
-            Tenant tenant = db.Tenants.Find(id);
+            Tenant tenant = db.Tenants.FirstOrDefault(t => t.User.UserName == User.Identity.Name && t.TenantId == id);
             if (tenant == null)
             {
                 return NotFound();

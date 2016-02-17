@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 
 namespace PropertyManager.Api.Controllers
 {
+    [Authorize]
     public class WorkOrdersController : ApiController
     {
         private PropertyManagerDataContext db = new PropertyManagerDataContext();
@@ -19,14 +20,14 @@ namespace PropertyManager.Api.Controllers
         // GET: api/WorkOrders
         public IEnumerable<WorkOrderModel> GetWorkOrders()
         {
-            return Mapper.Map<IEnumerable<WorkOrderModel>>(db.WorkOrders);
+            return Mapper.Map<IEnumerable<WorkOrderModel>>(db.WorkOrders.Where(wo => wo.Property.User.UserName == User.Identity.Name));
         }
 
         // GET: api/WorkOrders/5
         [ResponseType(typeof(WorkOrder))]
         public IHttpActionResult GetWorkOrder(int id)
         {
-            WorkOrder workOrder = db.WorkOrders.Find(id);
+            WorkOrder workOrder = db.WorkOrders.FirstOrDefault(wo => wo.Property.User.UserName == User.Identity.Name && wo.WorkOrderId == id);
             if (workOrder == null)
             {
                 return NotFound();
@@ -51,7 +52,12 @@ namespace PropertyManager.Api.Controllers
 
             #region Thing to Change
 
-            var dbWorkOrder = db.WorkOrders.Find(id);
+            WorkOrder dbWorkOrder = db.WorkOrders.FirstOrDefault(wo => wo.Property.User.UserName == User.Identity.Name && wo.WorkOrderId == id);
+
+            if (dbWorkOrder == null)
+            {
+                return BadRequest();
+            }
 
             dbWorkOrder.Update(workOrder);
             db.Entry(dbWorkOrder).State = EntityState.Modified;
@@ -88,6 +94,8 @@ namespace PropertyManager.Api.Controllers
 
             var dbWorkOrder = new WorkOrder(workOrder);
 
+            dbWorkOrder.Property.User = db.Users.FirstOrDefault(wo => wo.UserName == User.Identity.Name);
+
             db.WorkOrders.Add(dbWorkOrder);
             db.SaveChanges();
 
@@ -100,7 +108,7 @@ namespace PropertyManager.Api.Controllers
         [ResponseType(typeof(WorkOrder))]
         public IHttpActionResult DeleteWorkOrder(int id)
         {
-            WorkOrder workOrder = db.WorkOrders.Find(id);
+            WorkOrder workOrder = db.WorkOrders.FirstOrDefault(wo => wo.Property.User.UserName == User.Identity.Name && wo.WorkOrderId == id);
             if (workOrder == null)
             {
                 return NotFound();
