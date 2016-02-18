@@ -18,8 +18,8 @@
             <td>{{workOrder.WorkOrderId}}</td>
             <td>{{workOrder.Tenant.LastName}}, {{workOrder.Tenant.FirstName}}</td>
             <td>{{workOrder.Property.PropertyName}}</td>
-            <td>{{workOrder.OpenedDate}}</td>
-            <td>{{workOrder.ClosedDate}}</td>
+            <td>{{workOrder.OpenedDate | date}}</td>
+            <td>{{workOrder.ClosedDate | date}}</td>
             <td>{{workOrder.Priority}}</td>
             <td>
                 <a class="btn" ng-href="/#/app/workOrder/detail/{{workOrder.WorkOrderId}}">

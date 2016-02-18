@@ -2,9 +2,10 @@
 
 <div class="container">
     <h1>We guarantee your satisfaction with our product!</h1>
-    <h5>This is not a money-back guarantee.</h5>
-    <div class="container-fluid">
+    <h5 id="hiddenGuaranteeMessage">This is not a money-back guarantee.</h5>
+    <div class="container" id="registerMain">
         <div class="form-group">
+            <h2>Register</h2>
             <label>Username</label>
             <input type="text" class="form-control input-lg text-center" ng-model="registration.Username" />
         </div>
@@ -23,10 +24,13 @@
             <label>Confirm Password</label>
             <input type="password" class="form-control input-lg text-center" ng-model="registration.ConfirmPassword" />
         </div>
+        <br />
+        <h6>By clicking Register, you agree to our<br />License Agreement and Privacy Statement.</h6>
+        <h4 id="hiddenMessage">Lol again.</h4>
+        <div id="registerButton">
+            <button class="btn btn-success btn-lg" ng-click="register()">Register!</button>
+        </div>        <br />
+        <h4>Already have an account? <a href="/#/login" id="returnToLogin">Return to login.</a></h4>
     </div>
-    <br />
-    <h6>By clicking Sign In, you agree to our<br />License Agreement and Privacy Statement.</h6>
-    <h4>Lol again.</h4>
-    <button class="btn btn-success btn-lg" ng-click="register()">Register!</button>
 
 </div>

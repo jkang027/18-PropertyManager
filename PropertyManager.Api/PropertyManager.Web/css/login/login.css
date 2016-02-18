@@ -2,7 +2,7 @@
     color: darkgrey;
 }
 
-h1 {
+h1, h3, h6, h4, #loginButton {
     text-align: center;
 }
 
@@ -10,14 +10,20 @@ input {
     background-color: transparent;
 }
 
-#mainLogin {
-    align-items: center;
-    text-align: center;
-    vertical-align: central;
+#mainLogin {    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width:25em;
+    height:30em;
+    margin-top: -25em; /*set to a negative number 1/2 of your height*/
+    margin-left: -12.5em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid darkgray;
 }
 
 label {
     color: orangered;
+    margin-left: 1em;
 }
 
 #createAccount {

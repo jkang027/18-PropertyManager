@@ -1,19 +1,43 @@
-﻿.container {
+﻿#registerMain {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width:25em;
+    height:30em;
+    margin-top: -25em; /*set to a negative number 1/2 of your height*/
+    margin-left: -12.5em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid darkgray;
+}
+
+h1, input, h6, h2, h4 {
+    color: darkgrey;
+    background-color: transparent;
     text-align: center;
 }
 
-.container-fluid {
-    text-align: inherit;
+#hiddenGuaranteeMessage {
+    text-align: center;
 }
 
-input {
-    background-color: transparent;
+#hiddenMessage {
+    color: black;
 }
 
-h1, input, h6 {
-    color: darkgrey;
+#registerButton {
+    text-align: center;
+}
+
+#returnToLogin {
+    color: red;
+    text-decoration: none;
+}
+
+#returnToLogin:hover {
+    color: darkred;
+    text-decoration: underline;
 }
 
 label {
     color: orangered;
+    margin-left: 1em;
 }
